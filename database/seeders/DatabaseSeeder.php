@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -25,5 +26,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Pa$$w0rd!'),
             'remember_token' => Str::random(10),
         ]);
+
+        Brand::factory(5)->create();
     }
 }
