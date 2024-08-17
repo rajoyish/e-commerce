@@ -14,7 +14,8 @@ class OrderStats extends BaseWidget
             BaseWidget\Stat::make('New Orders', Order::query()->where('status', 'new')->count()),
             BaseWidget\Stat::make('Order Processing', Order::query()->where('status', 'processing')->count()),
             BaseWidget\Stat::make('Order Shipped', Order::query()->where('status', 'shipped')->count()),
-            BaseWidget\Stat::make('Average Price', Number::currency(Order::query()->avg('grand_total'), 'NPR')),
+            BaseWidget\Stat::make('Average Price', Number::currency(Order::query()->avg('grand_total') ?? 0, 'NPR')),
+
         ];
     }
 }
