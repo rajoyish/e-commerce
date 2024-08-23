@@ -10,7 +10,7 @@
                             @foreach($categories as $category)
                                 <li wire:key="{{ $category->id }}" class="mb-4">
                                     <label for="{{ $category->slug }}" class="flex items-center dark:text-gray-400 ">
-                                        <input id="{{ $category->slug }}"
+                                        <input wire:model.live="selected_categories" id="{{ $category->slug }}"
                                                value="{{ $category->id }}"
                                                type="checkbox" class="w-4 h-4 mr-2">
                                         <span class="text-lg">{{ $category->name }}</span>
@@ -27,7 +27,7 @@
                             @foreach($brands as $brand)
                                 <li wire:key="{{ $brand->id }}" class="mb-4">
                                     <label for="{{ $brand->slug }}" class="flex items-center dark:text-gray-400 ">
-                                        <input id="{{ $brand->slug }}"
+                                        <input wire:model.live="selected_brands" id="{{ $brand->slug }}"
                                                value="{{ $brand->id }}"
                                                type="checkbox" class="w-4 h-4 mr-2">
                                         <span class="text-lg">{{ $brand->name }}</span>
@@ -41,14 +41,16 @@
                         <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
                         <ul>
                             <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg dark:text-gray-400">In Stock</span>
+                                <label for="featured" class="flex items-center dark:text-gray-300">
+                                    <input wire:model.live="featured" type="checkbox" value="1" id="featured"
+                                           class="w-4 h-4 mr-2">
+                                    <span class="text-lg dark:text-gray-400">Featured Products</span>
                                 </label>
                             </li>
                             <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
+                                <label for="on_sale" class="flex items-center dark:text-gray-300">
+                                    <input wire:model.live="on_sale" id="on_sale" value="1" type="checkbox"
+                                           class="w-4 h-4 mr-2">
                                     <span class="text-lg dark:text-gray-400">On Sale</span>
                                 </label>
                             </li>
@@ -59,12 +61,15 @@
                         <h2 class="text-2xl font-bold dark:text-gray-400">Price</h2>
                         <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
                         <div>
-                            <input type="range"
+                            <div class="font-semibold">{{ Number::currency($price_range, 'NPR') }}</div>
+                            <input wire:model.live="price_range" type="range"
                                    class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer"
-                                   max="500000" value="100000" step="100000">
+                                   max="500000" value="300000" step="1000">
                             <div class="flex justify-between ">
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; 1000</span>
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; 500000</span>
+                                <span
+                                    class="inline-block text-sm font-bold text-blue-400 ">{{ Number::currency(1000, 'NPR') }}</span>
+                                <span
+                                    class="inline-block text-sm font-bold text-blue-400 ">{{ Number::currency(500000, 'NPR') }}</span>
                             </div>
                         </div>
                     </div>
@@ -87,6 +92,7 @@
                             <div wire:key="{{ $product->id }}" class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
                                 <div class="border border-gray-300 dark:border-gray-700">
                                     <div class="relative bg-gray-200">
+
                                         <a href="/products/{{ $product->slug }}" class="">
                                             <img src="{{ url('storage', $product->images[0]) }}"
                                                  alt="" class="object-cover w-full h-56 mx-auto ">

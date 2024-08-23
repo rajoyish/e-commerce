@@ -77,6 +77,9 @@ class ProductResource extends Resource
                             ->default(true),
                         Forms\Components\Toggle::make('is_featured')
                             ->required(),
+                        Forms\Components\Toggle::make('on_sale')
+                            ->label('Set on Sale')
+                            ->required(),
                     ]),
 
                 ])->columnSpan(1),
