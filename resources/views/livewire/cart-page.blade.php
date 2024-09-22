@@ -82,7 +82,7 @@
                     <hr class="my-2">
                     <div class="flex justify-between mb-2">
                         <span class="font-semibold">Total</span>
-                        <span class="font-semibold">$21.98</span>
+                        <span class="font-semibold">{{ Number::currency($grand_total, 'NPR') }}</span>
                     </div>
                     @if($cart_items)
                         <a href="/checkout"
